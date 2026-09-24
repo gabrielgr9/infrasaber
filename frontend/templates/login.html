@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfraSaber - Bem-vindo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="icon" type="image/png" href="../static/images/1033947.png">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+</head>
+<body>
+
+    <main class="main-content">
+        <div class="auth-card">
+
+            <div class="auth-header">
+                <img src="{{ url_for('static', path='/images/infrasaber.png') }}" alt="Logo InfraSaber" class="auth-logo">
+                <h2>InfraSaber</h2>
+                <p>Inclusão e Acesso Digital</p>
+            </div>
+
+            <!-- Alternador de Abas -->
+            <div class="auth-tabs">
+                <button type="button" class="tab-btn active" id="btn-tab-login">Entrar</button>
+                <button type="button" class="tab-btn" id="btn-tab-register">Cadastrar</button>
+            </div>
+
+            <!-- Mensagem de Feedback -->
+            <div id="auth-alert" class="alert-msg"></div>
+
+            <!-- Formulário de Login -->
+            <form id="form-login" class="auth-form active">
+                <div class="form-group">
+                    <label for="login-email">E-mail</label>
+                    <input type="email" id="login-email" required placeholder="seu.email@exemplo.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-senha">Senha</label>
+                    <input type="password" id="login-senha" required placeholder="Digite sua senha">
+                </div>
+
+                <button type="submit" class="btn-primary">Entrar no Sistema</button>
+            </form>
+
+            <!-- Formulário de Cadastro -->
+            <form id="form-cadastro" class="auth-form">
+                <div class="form-group">
+                    <label for="reg-nome">Nome Completo</label>
+                    <input type="text" id="reg-nome" required placeholder="Seu nome completo">
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-email">E-mail</label>
+                    <input type="email" id="reg-email" required placeholder="seu.email@exemplo.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-senha">Senha</label>
+                    <input type="password" id="reg-senha" required placeholder="Crie uma senha forte">
+                </div>
+
+                <div class="form-group">
+                    <label for="reg-tipo">Perfil</label>
+                    <input type="text" id="reg-tipo" value="MORADOR" class="input-readonly" readonly title="Novos cadastros entram por padrão como Morador">
+                </div>
+
+                <button type="submit" class="btn-primary">Criar Conta</button>
+            </form>
+
+        </div>
+    </main>
+
+    <!-- Script para evitar cache antigo do navegador -->
+    <script src="{{ url_for('static', path='/js/auth.js') }}?v=2"></script>
+</body>
+</html>

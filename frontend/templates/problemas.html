@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatar e Acompanhar Problemas - InfraSaber</title>
+    <link rel="icon" type="image/png" href="../static/images/1033947.png">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/sidebar.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            background-color: #f8f9fa;
+            display: flex;
+        }
+        .main-content {
+            margin-left: 80px;
+            width: calc(100% - 80px);
+            min-height: 100vh;
+            padding: 30px;
+            transition: margin-left 0.3s ease;
+        }
+        .card-custom {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR COMPLETA -->
+    <nav class="side-menu">
+        <div class="btn-expandir">
+            <i class="bi bi-list" id="btnc-exp"></i>
+        </div>
+        <ul>
+            <li class="iten-menu">
+                <a href="/dashboard">
+                    <span class="icon"><i class="bi bi-columns-gap"></i></span>
+                    <span class="txt-link">Dashboard</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/mapa">
+                    <span class="icon"><i class="bi bi-wifi"></i></span>
+                    <span class="txt-link">Ponto de Internet</span>
+                </a>
+            </li>
+            <li class="iten-menu ativo">
+                <a href="/problemas">
+                    <span class="icon"><i class="bi bi-stickies"></i></span>
+                    <span class="txt-link">Relatar Problema</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/cursosoficinas">
+                    <span class="icon"><i class="bi bi-book"></i></span>
+                    <span class="txt-link">Cursos e Oficinas</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/iniciativas">
+                    <span class="icon"><i class="bi bi-person-arms-up"></i></span>
+                    <span class="txt-link">Iniciativa Social</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/orgaos">
+                    <span class="icon"><i class="bi bi-bank"></i></span>
+                    <span class="txt-link">Orgãos Públicos</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/feedbacks">
+                    <span class="icon"><i class="bi bi-star"></i></span>
+                    <span class="txt-link">Feedbacks</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/conta">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Conta</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        <div class="container-fluid">
+            <div class="row mb-4">
+                <div class="col">
+                    <h2 class="fw-bold text-dark">Registro de Problemas</h2>
+                    <p class="text-muted">Relate ocorrências de infraestrutura e acompanhe o andamento das solicitações.</p>
+                </div>
+            </div>
+
+            <!-- ALERTA DE FEEDBACK -->
+            <div id="alerta-retorno" class="alert d-none" role="alert"></div>
+
+            <!-- FORMULÁRIO DE RELATO -->
+            <div class="card-custom">
+                <h4 class="fw-bold text-secondary mb-3"><i class="bi bi-plus-circle me-2"></i>Novo Relato de Problema</h4>
+                <form id="form-problema">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="titulo" class="form-label fw-semibold">Título</label>
+                            <input type="text" class="form-control" id="titulo" required placeholder="Ex: Falta de energia na via">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_categoria" class="form-label fw-semibold">Categoria</label>
+                            <select class="form-select" id="id_categoria" required>
+                                <option value="" selected disabled>Carregando categorias...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="endereco" class="form-label fw-semibold">Endereço</label>
+                            <input type="text" class="form-control" id="endereco" required placeholder="Ex: Rua das Flores, 123">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="regiao" class="form-label fw-semibold">Região</label>
+                            <input type="text" class="form-control" id="regiao" required placeholder="Ex: Centro / Zona Sul">
+                        </div>
+                        <div class="col-12">
+                            <label for="descricao" class="form-label fw-semibold">Descrição do Problema</label>
+                            <textarea class="form-control" id="descricao" rows="3" required placeholder="Descreva detalhadamente o ocorrido..."></textarea>
+                        </div>
+                        <div class="col-12 text-end">
+                            <button type="submit" class="btn btn-primary px-4 fw-bold">
+                                <i class="bi bi-send me-2"></i>Enviar Relato
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TABELA DE ACOMPANHAMENTO -->
+            <div class="card-custom">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="fw-bold text-secondary mb-0"><i class="bi bi-list-check me-2"></i>Acompanhar Solicitações</h4>
+                    <button class="btn btn-outline-secondary btn-sm" onclick="carregarProblemas()"><i class="bi bi-arrow-clockwise me-1"></i>Atualizar</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Categoria</th>
+                                <th>Endereço / Região</th>
+                                <th>Status</th>
+                                <th>Registro</th>
+                                <th>Última Atualização</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-problemas">
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">Carregando solicitações...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script src="{{ url_for('static', path='/js/sidebar.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/problemas.js') }}"></script>
+
+    <!-- MODAL DE DETALHES / TEXTO DE CORREÇÃO -->
+    <div class="modal fade" id="modalDetalhesProblema" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="detalheTitulo">Detalhes do Problema</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-2"><strong>Status:</strong> <span id="detalheStatus" class="badge"></span></p>
+                    <p class="mb-2"><strong>Categoria:</strong> <span id="detalheCategoria">-</span></p>
+                    <p class="mb-2"><strong>Endereço/Região:</strong> <span id="detalheEndereco">-</span></p>
+                    <p class="mb-3"><strong>Descrição do relato:</strong><br><span id="detalheDescricao">-</span></p>
+                    <hr>
+                    <p class="mb-1 fw-bold text-secondary"><i class="bi bi-chat-left-text me-1"></i>Texto de Correção / Acompanhamento</p>
+                    <p class="mb-0" id="detalheComentarioAdmin">Aguardando análise da administração...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

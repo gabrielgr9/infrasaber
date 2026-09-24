@@ -1,0 +1,64 @@
+[2026-09-18T14:45:01.153+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: wifi_livre_sp_pipeline.transformar_pyspark manual__2026-09-18T14:44:57.411492+00:00 [queued]>
+[2026-09-18T14:45:01.160+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: wifi_livre_sp_pipeline.transformar_pyspark manual__2026-09-18T14:44:57.411492+00:00 [queued]>
+[2026-09-18T14:45:01.160+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2026-09-18T14:45:01.172+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): transformar_pyspark> on 2026-09-18 14:44:57.411492+00:00
+[2026-09-18T14:45:01.178+0000] {standard_task_runner.py:60} INFO - Started process 242 to run task
+[2026-09-18T14:45:01.181+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'wifi_livre_sp_pipeline', 'transformar_pyspark', 'manual__2026-09-18T14:44:57.411492+00:00', '--job-id', '10', '--raw', '--subdir', 'DAGS_FOLDER/wifi_pipeline_dag.py', '--cfg-path', '/tmp/tmp3mc7crjw']
+[2026-09-18T14:45:01.183+0000] {standard_task_runner.py:88} INFO - Job 10: Subtask transformar_pyspark
+[2026-09-18T14:45:01.199+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.8/site-packages/airflow/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2026-09-18T14:45:01.233+0000] {task_command.py:423} INFO - Running <TaskInstance: wifi_livre_sp_pipeline.transformar_pyspark manual__2026-09-18T14:44:57.411492+00:00 [running]> on host 0dc380e53b83
+[2026-09-18T14:45:01.311+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='infrasaber' AIRFLOW_CTX_DAG_ID='wifi_livre_sp_pipeline' AIRFLOW_CTX_TASK_ID='transformar_pyspark' AIRFLOW_CTX_EXECUTION_DATE='2026-09-18T14:44:57.411492+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-09-18T14:44:57.411492+00:00'
+[2026-09-18T14:45:01.312+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-09-18T14:45:01.313+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/airflow/spark_jobs/wifi_transform.py']
+[2026-09-18T14:45:01.326+0000] {subprocess.py:86} INFO - Output:
+[2026-09-18T14:45:02.801+0000] {subprocess.py:93} INFO - :: loading settings :: url = jar:file:/home/airflow/.local/lib/python3.8/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[2026-09-18T14:45:02.867+0000] {subprocess.py:93} INFO - Ivy Default Cache set to: /home/airflow/.ivy2/cache
+[2026-09-18T14:45:02.867+0000] {subprocess.py:93} INFO - The jars for the packages stored in: /home/airflow/.ivy2/jars
+[2026-09-18T14:45:02.872+0000] {subprocess.py:93} INFO - org.postgresql#postgresql added as a dependency
+[2026-09-18T14:45:02.873+0000] {subprocess.py:93} INFO - :: resolving dependencies :: org.apache.spark#spark-submit-parent-71b528ad-7228-4d10-b087-62dee2925a53;1.0
+[2026-09-18T14:45:02.873+0000] {subprocess.py:93} INFO - 	confs: [default]
+[2026-09-18T14:45:03.333+0000] {subprocess.py:93} INFO - 	found org.postgresql#postgresql;42.7.3 in central
+[2026-09-18T14:45:03.402+0000] {subprocess.py:93} INFO - 	found org.checkerframework#checker-qual;3.42.0 in central
+[2026-09-18T14:45:03.433+0000] {subprocess.py:93} INFO - downloading https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.3/postgresql-42.7.3.jar ...
+[2026-09-18T14:45:03.514+0000] {subprocess.py:93} INFO - 	[SUCCESSFUL ] org.postgresql#postgresql;42.7.3!postgresql.jar (103ms)
+[2026-09-18T14:45:03.545+0000] {subprocess.py:93} INFO - downloading https://repo1.maven.org/maven2/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar ...
+[2026-09-18T14:45:03.576+0000] {subprocess.py:93} INFO - 	[SUCCESSFUL ] org.checkerframework#checker-qual;3.42.0!checker-qual.jar (59ms)
+[2026-09-18T14:45:03.577+0000] {subprocess.py:93} INFO - :: resolution report :: resolve 536ms :: artifacts dl 168ms
+[2026-09-18T14:45:03.577+0000] {subprocess.py:93} INFO - 	:: modules in use:
+[2026-09-18T14:45:03.577+0000] {subprocess.py:93} INFO - 	org.checkerframework#checker-qual;3.42.0 from central in [default]
+[2026-09-18T14:45:03.577+0000] {subprocess.py:93} INFO - 	org.postgresql#postgresql;42.7.3 from central in [default]
+[2026-09-18T14:45:03.578+0000] {subprocess.py:93} INFO - 	---------------------------------------------------------------------
+[2026-09-18T14:45:03.578+0000] {subprocess.py:93} INFO - 	|                  |            modules            ||   artifacts   |
+[2026-09-18T14:45:03.578+0000] {subprocess.py:93} INFO - 	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+[2026-09-18T14:45:03.578+0000] {subprocess.py:93} INFO - 	---------------------------------------------------------------------
+[2026-09-18T14:45:03.578+0000] {subprocess.py:93} INFO - 	|      default     |   2   |   2   |   2   |   0   ||   2   |   2   |
+[2026-09-18T14:45:03.578+0000] {subprocess.py:93} INFO - 	---------------------------------------------------------------------
+[2026-09-18T14:45:03.581+0000] {subprocess.py:93} INFO - :: retrieving :: org.apache.spark#spark-submit-parent-71b528ad-7228-4d10-b087-62dee2925a53
+[2026-09-18T14:45:03.581+0000] {subprocess.py:93} INFO - 	confs: [default]
+[2026-09-18T14:45:03.590+0000] {subprocess.py:93} INFO - 	2 artifacts copied, 0 already retrieved (1289kB/9ms)
+[2026-09-18T14:45:03.662+0000] {subprocess.py:93} INFO - 26/09/18 14:45:03 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[2026-09-18T14:45:03.808+0000] {subprocess.py:93} INFO - Setting default log level to "WARN".
+[2026-09-18T14:45:03.809+0000] {subprocess.py:93} INFO - To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+[2026-09-18T14:45:08.084+0000] {local_task_job_runner.py:121} ERROR - Received SIGTERM. Terminating subprocesses
+[2026-09-18T14:45:08.090+0000] {process_utils.py:131} INFO - Sending 15 to group 242. PIDs of all processes in the group: [243, 260, 242]
+[2026-09-18T14:45:08.091+0000] {process_utils.py:86} INFO - Sending the signal 15 to group 242
+[2026-09-18T14:45:08.093+0000] {taskinstance.py:2450} ERROR - Received SIGTERM. Terminating subprocesses.
+[2026-09-18T14:45:08.094+0000] {subprocess.py:104} INFO - Sending SIGTERM signal to process group
+[2026-09-18T14:45:08.124+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 203, in execute
+    result = self.subprocess_hook.run_command(
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/hooks/subprocess.py", line 91, in run_command
+    for raw_line in iter(self.sub_process.stdout.readline, b""):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 2452, in signal_handler
+    raise AirflowException("Task received SIGTERM signal")
+airflow.exceptions.AirflowException: Task received SIGTERM signal
+[2026-09-18T14:45:08.131+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=wifi_livre_sp_pipeline, task_id=transformar_pyspark, execution_date=20260918T144457, start_date=20260918T144501, end_date=20260918T144508
+[2026-09-18T14:45:08.169+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 10 for task transformar_pyspark (Task received SIGTERM signal; 242)
+[2026-09-18T14:45:08.232+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=243, status='terminated', started='14:45:00') (243) terminated with exit code None
+[2026-09-18T14:45:08.606+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=242, status='terminated', exitcode=1, started='14:45:00') (242) terminated with exit code 1
+[2026-09-18T14:45:08.700+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=260, status='terminated', started='14:45:00') (260) terminated with exit code None
+[2026-09-18T14:45:08.701+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 143
+[2026-09-18T14:45:08.725+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

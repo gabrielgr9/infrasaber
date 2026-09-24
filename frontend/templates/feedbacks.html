@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedbacks de Problemas - InfraSaber</title>
+    <link rel="icon" type="image/png" href="../static/images/1033947.png">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/sidebar.css') }}">
+    <style>
+        body {
+            margin: 0;
+            background-color: #f8f9fa;
+            display: flex;
+        }
+        .main-content {
+            margin-left: 80px;
+            width: calc(100% - 80px);
+            min-height: 100vh;
+            padding: 30px;
+            transition: margin-left 0.3s ease;
+        }
+        .card-pendente {
+            background: white;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease;
+        }
+        .card-pendente:hover {
+            transform: translateY(-2px);
+        }
+        .table-custom tr {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR COMPLETA -->
+    <nav class="side-menu">
+        <div class="btn-expandir">
+            <i class="bi bi-list" id="btnc-exp"></i>
+        </div>
+        <ul>
+            <li class="iten-menu">
+                <a href="/dashboard">
+                    <span class="icon"><i class="bi bi-columns-gap"></i></span>
+                    <span class="txt-link">Dashboard</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/mapa">
+                    <span class="icon"><i class="bi bi-wifi"></i></span>
+                    <span class="txt-link">Ponto de Internet</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/problemas">
+                    <span class="icon"><i class="bi bi-stickies"></i></span>
+                    <span class="txt-link">Relatar Problema</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/cursosoficinas">
+                    <span class="icon"><i class="bi bi-book"></i></span>
+                    <span class="txt-link">Cursos e Oficinas</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/iniciativas">
+                    <span class="icon"><i class="bi bi-person-arms-up"></i></span>
+                    <span class="txt-link">Iniciativa Social</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/orgaos">
+                    <span class="icon"><i class="bi bi-bank"></i></span>
+                    <span class="txt-link">Orgãos Públicos</span>
+                </a>
+            </li>
+            <li class="iten-menu ativo">
+                <a href="/feedbacks">
+                    <span class="icon"><i class="bi bi-star"></i></span>
+                    <span class="txt-link">Feedbacks</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/conta">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Conta</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+        <div class="container-fluid">
+            <div class="row mb-4">
+                <div class="col">
+                    <h2 class="fw-bold text-dark">Avaliações e Feedbacks</h2>
+                    <p class="text-muted">Avalie os problemas resolvidos ou em andamento e acompanhe seu histórico de comentários.</p>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 1: PROBLEMAS SEM FEEDBACK (CARDS) -->
+            <div class="mb-5">
+                <h4 class="fw-bold text-secondary mb-3"><i class="bi bi-exclamation-circle me-2"></i>Aguardando sua Avaliação</h4>
+                <div class="row g-4" id="container-sem-feedback">
+                    <div class="col-12 text-center text-muted py-3">
+                        <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                        <span class="ms-2">Carregando pendências...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 2: PROBLEMAS COM FEEDBACK (LISTA POR LINHAS / TABELA) -->
+        <div>
+            <h4 class="fw-bold text-secondary mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Histórico de Feedbacks Enviados</h4>
+            <div class="card border-0 shadow-sm rounded-3 overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table table-hover table-custom mb-0 align-middle">
+                        <thead class="table-light text-secondary small text-uppercase">
+                            <tr>
+                                <th class="py-3 ps-4">Problema / Descrição</th>
+                                <th>Nota (0-5)</th>
+                                <th>Comentário</th>
+                                <th>Data</th>
+                                <!-- Removida a coluna de Ações -->
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-com-feedback">
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-4">Carregando histórico...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL DE FEEDBACK (AVALIAR / ATUALIZAR) -->
+    <div class="modal fade" id="modalFeedback" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title fw-bold" id="modalTitulo">Registrar Feedback</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="formFeedback">
+                        <input type="hidden" id="feedbackIdProblema">
+                        <div class="mb-3">
+                            <label for="inputNota" class="form-label fw-semibold">Nota (0 a 5)</label>
+                            <input type="number" class="form-control" id="inputNota" min="0" max="5" required>
+                            <div class="form-text">Informe um valor inteiro de 0 a 5.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputComentario" class="form-label fw-semibold">Comentário</label>
+                            <textarea class="form-control" id="inputComentario" rows="3" maxlength="300" required placeholder="Escreva seu comentário sobre o atendimento..."></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary fw-bold">Salvar Feedback</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', path='/js/sidebar.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/feedbacks.js') }}"></script>
+</body>
+</html>

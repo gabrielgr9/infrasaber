@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body{
+    background-color: #f8f9fa;
+    display: flex;
+}
+
+.main-content {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+    min-height: 100vh;
+    transition: margin-left 0.3s ease;
+}
+
+nav.side-menu{
+    width: 80px;
+    height: 100%;
+    background-color: rgb(15, 42, 74);
+    padding: 0;
+    box-shadow: 3px 0 0 rgb(42, 90, 145);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transition: .3s;
+    z-index: 1000;
+}
+
+nav.side-menu.expandir{
+    width: 280px;
+}
+
+.btn-expandir{
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 80px; 
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.btn-expandir > i{
+    color: white;
+    font-size: 26px;
+}
+
+ul {
+    height: 100%;
+    list-style-type: none;
+    margin-top: 80px;
+}
+
+ul li.iten-menu{
+    transition: 0.5s;
+}
+
+ul li.ativo{
+    background-color: rgb(42, 90, 145);
+}
+
+ul li.iten-menu:hover{
+    background-color: rgb(42, 90, 145);
+}
+
+ul li.iten-menu a{
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 20px 0px;
+    display: flex;
+    align-items: center;
+}
+
+ul li.iten-menu a .icon{
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul li.iten-menu a .txt-link{
+    margin-left: 50px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: 0.6s;
+}
+
+nav.side-menu:hover .txt-link {
+    opacity: 1;
+}
+
+nav.side-menu.expandir .txt-link{
+    margin-left: 20px;
+    opacity: 1;
+}
+
+ul li.iten-menu a .icon > i{
+    font-size: 26px;
+    margin-left: 0px;
+}

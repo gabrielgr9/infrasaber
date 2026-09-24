@@ -1,0 +1,20 @@
+[2026-09-18T14:16:08.900+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: wifi_livre_sp_pipeline.extrair_ingerir_csv manual__2026-09-18T14:16:08.141584+00:00 [queued]>
+[2026-09-18T14:16:08.910+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: wifi_livre_sp_pipeline.extrair_ingerir_csv manual__2026-09-18T14:16:08.141584+00:00 [queued]>
+[2026-09-18T14:16:08.911+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2026-09-18T14:16:08.931+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): extrair_ingerir_csv> on 2026-09-18 14:16:08.141584+00:00
+[2026-09-18T14:16:08.939+0000] {standard_task_runner.py:60} INFO - Started process 275 to run task
+[2026-09-18T14:16:08.945+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'wifi_livre_sp_pipeline', 'extrair_ingerir_csv', 'manual__2026-09-18T14:16:08.141584+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/wifi_pipeline_dag.py', '--cfg-path', '/tmp/tmpi_ghdfkc']
+[2026-09-18T14:16:08.948+0000] {standard_task_runner.py:88} INFO - Job 4: Subtask extrair_ingerir_csv
+[2026-09-18T14:16:08.973+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.8/site-packages/airflow/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2026-09-18T14:16:09.023+0000] {task_command.py:423} INFO - Running <TaskInstance: wifi_livre_sp_pipeline.extrair_ingerir_csv manual__2026-09-18T14:16:08.141584+00:00 [running]> on host ec3e628142ce
+[2026-09-18T14:16:09.111+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='infrasaber' AIRFLOW_CTX_DAG_ID='wifi_livre_sp_pipeline' AIRFLOW_CTX_TASK_ID='extrair_ingerir_csv' AIRFLOW_CTX_EXECUTION_DATE='2026-09-18T14:16:08.141584+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-09-18T14:16:08.141584+00:00'
+[2026-09-18T14:16:09.112+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-09-18T14:16:09.113+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'cd /opt/airflow/backend_app && python run_ingest_wifi.py /opt/airflow/data/brutos/pontos_internet_carapicuiba_400.csv']
+[2026-09-18T14:16:09.129+0000] {subprocess.py:86} INFO - Output:
+[2026-09-18T14:16:10.214+0000] {subprocess.py:93} INFO - Lendo o arquivo bruto em: /opt/airflow/data/brutos/pontos_internet_carapicuiba_400.csv
+[2026-09-18T14:16:10.215+0000] {subprocess.py:93} INFO - Carga de staging foi concluída com sucesso! O total de registros procssados: 149
+[2026-09-18T14:16:10.215+0000] {subprocess.py:93} INFO - OK: 149 registros inseridos no staging.
+[2026-09-18T14:16:10.342+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2026-09-18T14:16:10.373+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=wifi_livre_sp_pipeline, task_id=extrair_ingerir_csv, execution_date=20260918T141608, start_date=20260918T141608, end_date=20260918T141610
+[2026-09-18T14:16:10.400+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-09-18T14:16:10.425+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,4 @@
+pyspark==3.5.1
+psycopg2-binary
+sqlalchemy==1.4.52
+pydantic-settings

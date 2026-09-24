@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Conta - InfraSaber</title>
+    <link rel="icon" type="image/png" href="../static/images/1033947.png">
+    <!-- Bootstrap, Ícones e Sidebar CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/sidebar.css') }}">
+    <style>
+        body {
+            margin: 0;
+            background-color: #f8f9fa;
+            display: flex;
+        }
+        .main-content {
+            margin-left: 80px;
+            width: calc(100% - 80px);
+            min-height: 100vh;
+            padding: 30px;
+            transition: margin-left 0.3s ease;
+        }
+        .card-conta {
+            background: white;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .avatar-placeholder {
+            width: 80px;
+            height: 80px;
+            background-color: #e9ecef;
+            color: #6c757d;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 15px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR COMPLETA -->
+    <nav class="side-menu">
+        <div class="btn-expandir">
+            <i class="bi bi-list" id="btnc-exp"></i>
+        </div>
+        <ul>
+            <li class="iten-menu">
+                <a href="/dashboard">
+                    <span class="icon"><i class="bi bi-columns-gap"></i></span>
+                    <span class="txt-link">Dashboard</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/mapa">
+                    <span class="icon"><i class="bi bi-wifi"></i></span>
+                    <span class="txt-link">Ponto de Internet</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/problemas">
+                    <span class="icon"><i class="bi bi-stickies"></i></span>
+                    <span class="txt-link">Relatar Problema</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/cursosoficinas">
+                    <span class="icon"><i class="bi bi-book"></i></span>
+                    <span class="txt-link">Cursos e Oficinas</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/iniciativas">
+                    <span class="icon"><i class="bi bi-person-arms-up"></i></span>
+                    <span class="txt-link">Iniciativa Social</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/orgaos">
+                    <span class="icon"><i class="bi bi-bank"></i></span>
+                    <span class="txt-link">Orgãos Públicos</span>
+                </a>
+            </li>
+            <li class="iten-menu">
+                <a href="/feedbacks">
+                    <span class="icon"><i class="bi bi-star"></i></span>
+                    <span class="txt-link">Feedbacks</span>
+                </a>
+            </li>
+            <li class="iten-menu ativo">
+                <a href="/conta">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Conta</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL CENTRALIZADO -->
+    <main class="main-content d-flex align-items-center justify-content-center">
+        <div class="container" style="max-width: 600px;">
+            
+            <div class="row mb-4 text-center">
+                <div class="col">
+                    <h2 class="fw-bold text-dark">Minha Conta</h2>
+                    <p class="text-muted">Gerencie suas informações pessoais e credenciais de acesso.</p>
+                </div>
+            </div>
+
+            <div class="card card-conta p-4 p-md-5">
+                <!-- DADOS DO USUÁRIO -->
+                <div class="text-center mb-4" id="perfil-info">
+                    <div class="avatar-placeholder">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <!-- IDs alinhados com o JS para preenchimento dinâmico -->
+                    <h4 class="fw-bold text-dark mb-1" id="usuario-nome">Carregando...</h4>
+                    <p class="text-muted small mb-2" id="usuario-email">carregando@email.com</p>
+                    <span class="badge bg-primary px-3 py-2 text-uppercase" id="usuario-tipo">Morador</span>
+                </div>
+
+                <hr class="text-muted opacity-25 my-4">
+
+                <!-- FORMULÁRIO DE ALTERAÇÃO DE SENHA -->
+                <h5 class="fw-bold text-secondary mb-3"><i class="bi bi-shield-lock me-2"></i>Alterar Senha</h5>
+                
+                <form id="formAlterarSenha">
+                    <div class="mb-3 text-start">
+                        <label for="inputSenhaAtual" class="form-label small fw-semibold">Senha Atual</label>
+                        <input type="password" class="form-control" id="inputSenhaAtual" required placeholder="Digite sua senha atual">
+                    </div>
+                    <div class="mb-3 text-start">
+                        <label for="inputNovaSenha" class="form-label small fw-semibold">Nova Senha</label>
+                        <input type="password" class="form-control" id="inputNovaSenha" required placeholder="Digite a nova senha">
+                    </div>
+                    <div class="mb-4 text-start">
+                        <label for="inputConfirmaSenha" class="form-label small fw-semibold">Confirmar Nova Senha</label>
+                        <input type="password" class="form-control" id="inputConfirmaSenha" required placeholder="Repita a nova senha">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold py-2 mb-3">
+                        <i class="bi bi-check2-circle me-1"></i> Atualizar Senha
+                    </button>
+                </form>
+
+                <!-- BOTÃO DE SAIR DA CONTA -->
+                <button type="button" id="btn-logout" class="btn btn-outline-danger w-100 fw-bold py-2">
+                    <i class="bi bi-box-arrow-right me-1"></i> Sair da Conta
+                </button>
+
+                <div id="mensagemAlerta" class="mt-3"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script src="{{ url_for('static', path='/js/sidebar.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/conta.js') }}?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+[2026-09-18T14:50:12.523+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: wifi_livre_sp_pipeline.transformar_pyspark manual__2026-09-18T14:50:08.365717+00:00 [queued]>
+[2026-09-18T14:50:12.531+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: wifi_livre_sp_pipeline.transformar_pyspark manual__2026-09-18T14:50:08.365717+00:00 [queued]>
+[2026-09-18T14:50:12.532+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2026-09-18T14:50:12.547+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): transformar_pyspark> on 2026-09-18 14:50:08.365717+00:00
+[2026-09-18T14:50:12.554+0000] {standard_task_runner.py:60} INFO - Started process 206 to run task
+[2026-09-18T14:50:12.559+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'wifi_livre_sp_pipeline', 'transformar_pyspark', 'manual__2026-09-18T14:50:08.365717+00:00', '--job-id', '16', '--raw', '--subdir', 'DAGS_FOLDER/wifi_pipeline_dag.py', '--cfg-path', '/tmp/tmp2474w_yi']
+[2026-09-18T14:50:12.562+0000] {standard_task_runner.py:88} INFO - Job 16: Subtask transformar_pyspark
+[2026-09-18T14:50:12.585+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.8/site-packages/airflow/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2026-09-18T14:50:12.630+0000] {task_command.py:423} INFO - Running <TaskInstance: wifi_livre_sp_pipeline.transformar_pyspark manual__2026-09-18T14:50:08.365717+00:00 [running]> on host bc4238bf9658
+[2026-09-18T14:50:12.731+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='infrasaber' AIRFLOW_CTX_DAG_ID='wifi_livre_sp_pipeline' AIRFLOW_CTX_TASK_ID='transformar_pyspark' AIRFLOW_CTX_EXECUTION_DATE='2026-09-18T14:50:08.365717+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-09-18T14:50:08.365717+00:00'
+[2026-09-18T14:50:12.733+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-09-18T14:50:12.734+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/airflow/spark_jobs/wifi_transform.py']
+[2026-09-18T14:50:12.750+0000] {subprocess.py:86} INFO - Output:
+[2026-09-18T14:50:14.641+0000] {subprocess.py:93} INFO - :: loading settings :: url = jar:file:/home/airflow/.local/lib/python3.8/site-packages/pyspark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+[2026-09-18T14:50:14.731+0000] {subprocess.py:93} INFO - Ivy Default Cache set to: /home/airflow/.ivy2/cache
+[2026-09-18T14:50:14.732+0000] {subprocess.py:93} INFO - The jars for the packages stored in: /home/airflow/.ivy2/jars
+[2026-09-18T14:50:14.736+0000] {subprocess.py:93} INFO - org.postgresql#postgresql added as a dependency
+[2026-09-18T14:50:14.737+0000] {subprocess.py:93} INFO - :: resolving dependencies :: org.apache.spark#spark-submit-parent-f18459b4-5f57-4a35-b739-7f8b05897c50;1.0
+[2026-09-18T14:50:14.738+0000] {subprocess.py:93} INFO - 	confs: [default]
+[2026-09-18T14:50:15.298+0000] {subprocess.py:93} INFO - 	found org.postgresql#postgresql;42.7.3 in central
+[2026-09-18T14:50:15.397+0000] {subprocess.py:93} INFO - 	found org.checkerframework#checker-qual;3.42.0 in central
+[2026-09-18T14:50:15.439+0000] {subprocess.py:93} INFO - downloading https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.3/postgresql-42.7.3.jar ...
+[2026-09-18T14:50:15.538+0000] {subprocess.py:93} INFO - 	[SUCCESSFUL ] org.postgresql#postgresql;42.7.3!postgresql.jar (128ms)
+[2026-09-18T14:50:15.562+0000] {subprocess.py:93} INFO - downloading https://repo1.maven.org/maven2/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar ...
+[2026-09-18T14:50:15.598+0000] {subprocess.py:93} INFO - 	[SUCCESSFUL ] org.checkerframework#checker-qual;3.42.0!checker-qual.jar (56ms)
+[2026-09-18T14:50:15.599+0000] {subprocess.py:93} INFO - :: resolution report :: resolve 670ms :: artifacts dl 192ms
+[2026-09-18T14:50:15.599+0000] {subprocess.py:93} INFO - 	:: modules in use:
+[2026-09-18T14:50:15.599+0000] {subprocess.py:93} INFO - 	org.checkerframework#checker-qual;3.42.0 from central in [default]
+[2026-09-18T14:50:15.600+0000] {subprocess.py:93} INFO - 	org.postgresql#postgresql;42.7.3 from central in [default]
+[2026-09-18T14:50:15.600+0000] {subprocess.py:93} INFO - 	---------------------------------------------------------------------
+[2026-09-18T14:50:15.600+0000] {subprocess.py:93} INFO - 	|                  |            modules            ||   artifacts   |
+[2026-09-18T14:50:15.600+0000] {subprocess.py:93} INFO - 	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+[2026-09-18T14:50:15.600+0000] {subprocess.py:93} INFO - 	---------------------------------------------------------------------
+[2026-09-18T14:50:15.600+0000] {subprocess.py:93} INFO - 	|      default     |   2   |   2   |   2   |   0   ||   2   |   2   |
+[2026-09-18T14:50:15.601+0000] {subprocess.py:93} INFO - 	---------------------------------------------------------------------
+[2026-09-18T14:50:15.606+0000] {subprocess.py:93} INFO - :: retrieving :: org.apache.spark#spark-submit-parent-f18459b4-5f57-4a35-b739-7f8b05897c50
+[2026-09-18T14:50:15.606+0000] {subprocess.py:93} INFO - 	confs: [default]
+[2026-09-18T14:50:15.625+0000] {subprocess.py:93} INFO - 	2 artifacts copied, 0 already retrieved (1289kB/19ms)
+[2026-09-18T14:50:15.868+0000] {subprocess.py:93} INFO - 26/09/18 14:50:15 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[2026-09-18T14:50:16.091+0000] {subprocess.py:93} INFO - Setting default log level to "WARN".
+[2026-09-18T14:50:16.091+0000] {subprocess.py:93} INFO - To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+[2026-09-18T14:50:20.483+0000] {subprocess.py:93} INFO - 26/09/18 14:50:20 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+[2026-09-18T14:50:23.682+0000] {subprocess.py:93} INFO - [Stage 0:>                                                          (0 + 1) / 1][Stage 2:>                                                          (0 + 1) / 1]                                                                                Traceback (most recent call last):
+[2026-09-18T14:50:23.682+0000] {subprocess.py:93} INFO -   File "/opt/airflow/spark_jobs/wifi_transform.py", line 117, in <module>
+[2026-09-18T14:50:23.683+0000] {subprocess.py:93} INFO -     main()
+[2026-09-18T14:50:23.683+0000] {subprocess.py:93} INFO -   File "/opt/airflow/spark_jobs/wifi_transform.py", line 110, in main
+[2026-09-18T14:50:23.683+0000] {subprocess.py:93} INFO -     write_analytics(df_agg)
+[2026-09-18T14:50:23.683+0000] {subprocess.py:93} INFO -   File "/opt/airflow/spark_jobs/wifi_transform.py", line 93, in write_analytics
+[2026-09-18T14:50:23.683+0000] {subprocess.py:93} INFO -     df_agg.write.jdbc(
+[2026-09-18T14:50:23.684+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.8/site-packages/pyspark/sql/readwriter.py", line 1984, in jdbc
+[2026-09-18T14:50:23.684+0000] {subprocess.py:93} INFO -     self.mode(mode)._jwrite.jdbc(url, table, jprop)
+[2026-09-18T14:50:23.684+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.8/site-packages/py4j/java_gateway.py", line 1322, in __call__
+[2026-09-18T14:50:23.684+0000] {subprocess.py:93} INFO -     return_value = get_return_value(
+[2026-09-18T14:50:23.684+0000] {subprocess.py:93} INFO -   File "/home/airflow/.local/lib/python3.8/site-packages/pyspark/errors/exceptions/captured.py", line 185, in deco
+[2026-09-18T14:50:23.684+0000] {subprocess.py:93} INFO -     raise converted from None
+[2026-09-18T14:50:23.684+0000] {subprocess.py:93} INFO - pyspark.errors.exceptions.captured.AnalysisException: Column total_manutencao not found in schema Some(StructType(StructField(id,IntegerType,false),StructField(bairro,StringType,true),StructField(regiao,StringType,true),StructField(total_pontos,IntegerType,true),StructField(total_ativos,IntegerType,true))).
+[2026-09-18T14:50:24.252+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2026-09-18T14:50:24.272+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-09-18T14:50:24.275+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=wifi_livre_sp_pipeline, task_id=transformar_pyspark, execution_date=20260918T145008, start_date=20260918T145012, end_date=20260918T145024
+[2026-09-18T14:50:24.293+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 16 for task transformar_pyspark (Bash command failed. The command returned a non-zero exit code 1.; 206)
+[2026-09-18T14:50:24.330+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-09-18T14:50:24.349+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

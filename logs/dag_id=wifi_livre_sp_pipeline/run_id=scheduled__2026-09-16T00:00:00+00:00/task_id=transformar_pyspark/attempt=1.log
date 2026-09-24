@@ -1,0 +1,29 @@
+[2026-09-17T00:14:34.739+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: wifi_livre_sp_pipeline.transformar_pyspark scheduled__2026-09-16T00:00:00+00:00 [queued]>
+[2026-09-17T00:14:34.746+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: wifi_livre_sp_pipeline.transformar_pyspark scheduled__2026-09-16T00:00:00+00:00 [queued]>
+[2026-09-17T00:14:34.747+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2026-09-17T00:14:34.757+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): transformar_pyspark> on 2026-09-16 00:00:00+00:00
+[2026-09-17T00:14:34.763+0000] {standard_task_runner.py:60} INFO - Started process 237 to run task
+[2026-09-17T00:14:34.766+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'wifi_livre_sp_pipeline', 'transformar_pyspark', 'scheduled__2026-09-16T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/wifi_pipeline_dag.py', '--cfg-path', '/tmp/tmpny6i4edb']
+[2026-09-17T00:14:34.767+0000] {standard_task_runner.py:88} INFO - Job 5: Subtask transformar_pyspark
+[2026-09-17T00:14:34.784+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.8/site-packages/airflow/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2026-09-17T00:14:34.823+0000] {task_command.py:423} INFO - Running <TaskInstance: wifi_livre_sp_pipeline.transformar_pyspark scheduled__2026-09-16T00:00:00+00:00 [running]> on host 7e33ad7c3739
+[2026-09-17T00:14:34.892+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='infrasaber' AIRFLOW_CTX_DAG_ID='wifi_livre_sp_pipeline' AIRFLOW_CTX_TASK_ID='transformar_pyspark' AIRFLOW_CTX_EXECUTION_DATE='2026-09-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-09-16T00:00:00+00:00'
+[2026-09-17T00:14:34.893+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-09-17T00:14:34.894+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'python /opt/airflow/spark_jobs/wifi_transform.py']
+[2026-09-17T00:14:34.906+0000] {subprocess.py:86} INFO - Output:
+[2026-09-17T00:14:34.951+0000] {subprocess.py:93} INFO - Traceback (most recent call last):
+[2026-09-17T00:14:34.952+0000] {subprocess.py:93} INFO -   File "/opt/airflow/spark_jobs/wifi_transform.py", line 2, in <module>
+[2026-09-17T00:14:34.952+0000] {subprocess.py:93} INFO -     from pyspark.sql import SparkSession
+[2026-09-17T00:14:34.952+0000] {subprocess.py:93} INFO - ModuleNotFoundError: No module named 'pyspark'
+[2026-09-17T00:14:34.958+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2026-09-17T00:14:34.971+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-09-17T00:14:34.973+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=wifi_livre_sp_pipeline, task_id=transformar_pyspark, execution_date=20260916T000000, start_date=20260917T001434, end_date=20260917T001434
+[2026-09-17T00:14:34.984+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 5 for task transformar_pyspark (Bash command failed. The command returned a non-zero exit code 1.; 237)
+[2026-09-17T00:14:35.018+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-09-17T00:14:35.035+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

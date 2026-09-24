@@ -1,0 +1,106 @@
+version: '3.8'
+
+x-airflow-common: &airflow-common
+  build:
+    context: .
+    dockerfile: airflow/Dockerfile
+  environment:
+    - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+    - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres:postgres123@postgres:5432/infrasaber
+    - AIRFLOW__CORE__LOAD_EXAMPLES=false
+    - PYTHONPATH=/opt/airflow/backend_app
+    - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/infrasaber
+  volumes:
+    - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags:z
+    - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs:z
+    - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config:z
+    - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins:z
+    - ./backend/app:/opt/airflow/backend_app:z
+    - ./spark/jobs:/opt/airflow/spark_jobs:z
+    - ./data:/opt/airflow/data:z
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  fastapi-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    working_dir: /code/backend/app
+    command: fastapi run main.py
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres123@postgres:5432/infrasaber
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  spark-jobs:
+    build:
+      context: .
+      dockerfile: spark/Dockerfile
+    container_name: spark_jobs
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./spark/jobs:/code/jobs
+    tty: true
+
+  postgres:
+    image: postgres:17
+    container_name: postgres_db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: infrasaber
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d infrasaber"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  airflow-init:
+    <<: *airflow-common
+    container_name: airflow_init
+    command: version
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres:postgres123@postgres:5432/infrasaber
+      - _AIRFLOW_DB_MIGRATE=true
+      - _AIRFLOW_WWW_USER_CREATE=true
+      - _AIRFLOW_WWW_USER_USERNAME=admin
+      - _AIRFLOW_WWW_USER_PASSWORD=admin
+    
+  airflow-webserver:
+    <<: *airflow-common
+    container_name: airflow_webserver
+    command: webserver
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+    
+  airflow-scheduler:
+    <<: *airflow-common
+    container_name: airflow_scheduler
+    command: scheduler
+    depends_on:
+      postgres:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
